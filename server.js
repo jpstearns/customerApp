@@ -51,5 +51,7 @@ app.put('/customers/:id', function (req, res) {
     }
   );
 });
-app.listen(3000);
-console.log('server running');
+
+http.listen(process.env.PORT || 3000, function(){
+  console.log('listening on', http.address().port);
+});
