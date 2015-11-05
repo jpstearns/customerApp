@@ -1,0 +1,494 @@
+<!DOCTYPE>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Customer App</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous"/>
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+
+  <!--[if lte IE 8]><script src="/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/css/main.css" />
+  <!--[if lte IE 8]><link rel="stylesheet" href="/css/ie8.css" /><![endif]-->
+   <!--[if lte IE 9]><link rel="stylesheet" href="/css/ie9.css" /><![endif]-->
+   <link rel="shortcut icon" href="/favicon.ico" />
+</head>
+<body>
+      <!-- Page Wrapper -->
+      <div id="page-wrapper">
+
+        <!-- Header -->
+          <header id="header" class="alt">
+            <h1><a href="index.html">Customer Management</a></h1>
+            <nav id="nav">
+              <ul>
+                <li class="special">
+                  <a href="#menu" class="menuToggle"><span>Menu</span></a>
+                  <div id="menu">
+                  </div>
+                </li>
+              </ul>
+            </nav>
+          </header>
+
+        <!-- Banner -->
+          <section id="banner">
+            <div class="inner">
+              <h2>Customer Management</h2>
+             <br>An Angular.js Application<br />
+              To Manage Customer Info<br />
+              Developed By: <a href="http://jpstearns.herokuapp.com">JP Stearns</a>.</p>
+              <ul class="actions">
+                <li><a href="#app" class="button special">Get Started</a></li>
+              </ul>
+            </div>
+            <a href="#" class="more scrolly">Learn More</a>
+          </section>
+  
+  <!-- Application -->
+	<div ng-controller='AppCtrl' id="app">
+	
+  <!--Customer Table-->
+     <table class="table">
+      <h3>Customer Listings</h3>
+      <thead>
+      <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip</th>
+        <th>Actions<th>
+      </tr>
+  </thead>
+  <tbody>
+  	  <tr ng-repeat="customer in customers">
+        <td>{{$index+1}}</td>
+        <td>{{customer.name}}</td>
+        <td>{{customer.email}}</td>
+        <td>{{customer.phone}}</td>
+        <td>{{customer.street}}</td>
+        <td>{{customer.city}}</td>
+        <td>{{customer.state}}</td>
+        <td>{{customer.zip}}</td>
+        <td>
+          <a href="#app" ng-click="deleteCustomer(customer._id)">Remove</a>
+          <a href="#app"  
+          ng-click="editCustomer(customer._id)">Edit</a>
+        </td>	
+      </tr>
+  </tbody>
+    </table>
+
+      <!--Forms-->
+      <a href="#app" style="border-bottom-color: transparent;"><button
+        style="padding: 10px; margin-left:10em  ;"
+        class = "btn btn-primary"
+        ng-click="addCustomer = !addCustomer"
+        ng-show="!addCustomer">Add Customer
+      </button></a>
+      <button
+        style="padding: 10px; margin-left:10em  ;"
+        class = "btn btn-danger"
+        ng-click="addCustomer = !addCustomer"
+        ng-show="addCustomer">Close
+      </button> 
+
+      <div class="container" ng-if="addCustomer" >
+        
+        <h3>Add a Customer</h3>
+        <div class="container">
+        
+<!-- Add Form -->
+<form name="addCustomerForm" novalidate>
+  <div class="col-sm-12" id="add">
+    <h4>Basic Information</h4>
+  </div>  
+  
+  <div class="col-sm-9">
+    <div class="input-group">
+      <span class="input-group-addon">Name</span>
+         <input
+            type="text"
+            name="newName"
+            placeholder="Enter Customer Name"
+            class="form-control"
+            ng-model="newCustomer.name"
+            required >
+              <span class="error-message" 
+                    ng-show="addCustomerForm.newName.$invalid && 
+                             addCustomerForm.newName.$dirty">
+               Please enter the Customer's Name </span>
+     </div><!--input-group-->  
+  </div><!--col-small-9-->
+  
+  <div class="col-sm-9">
+    <div class="input-group">
+      <span class="input-group-addon">Email</span>
+         <input
+            type="email"
+            name="newEmail"
+            placeholder="Enter Customer Email"
+            class="form-control"
+            ng-model="newCustomer.email">
+              <span class="error-message" 
+                    ng-show="addCustomerForm.newEmail.$invalid && 
+                             addCustomerForm.newEmail.$dirty && 
+                             addCustomerForm.newEmail.$touched">
+               Please enter a valid Email Address</span>
+     </div><!--input-group-->  
+  </div><!--col-small-9-->
+  
+  <div class="col-sm-9">
+    <div class="input-group">
+      <span class="input-group-addon">Phone</span>
+         <input
+            type="text"
+            name="newPhone"
+            placeholder="Enter Customer Phone"
+            class="form-control"
+            ng-model="newCustomer.phone"
+            ng-pattern="/^\(?(\d{3})\)?[ .-]?(\d{3})[ .-]?(\d{4})$/">
+              <span class="error-message" 
+                    ng-show="addCustomerForm.newPhone.$dirty && 
+                             addCustomerForm.newPhone.$invalid && 
+                             addCustomerForm.newPhone.$touched">
+              Please enter a valid Phone Number</span>
+     </div><!--input-group-->  
+  </div><!--col-small-9-->
+  
+  <div class="col-sm-12">
+     <h4 style="padding-top: 10px;">Address</h4>
+  </div>
+  
+  <div class="col-sm-9">
+    <div class="input-group">
+      <span class="input-group-addon">Street</span>
+        <input
+           type="text"
+           name="newStreet"
+           placeholder="Enter the Street number and Name"
+           class="form-control"
+           ng-model="newCustomer.street">
+     </div><!--input-group-->  
+  </div><!--col-small-9-->   
+  
+  <div class="col-sm-9">
+    <div class="input-group">
+      <span class="input-group-addon">City</span>
+        <input
+                type="text"
+                name="newCity"
+                placeholder="Enter the City"
+                class="form-control"
+                ng-model="newCustomer.city">
+     </div><!--input-group-->  
+  </div><!--col-small-9-->
+  
+  <div class="col-sm-9">
+    <div class="input-group">
+      <span class="input-group-addon">State</span>
+      <select ng-model="newCustomer.state" class="form-control" style="background: rgba(144, 144, 144, 0.25); color:white">
+         <option value="" disabled selected>Select Customer State</option>
+          <option value="AL">Alabama</option>
+          <option value="AK">Alaska</option>
+          <option value="AZ">Arizona</option>
+          <option value="AR">Arkansas</option>
+          <option value="CA">California</option>
+          <option value="CO">Colorado</option>
+          <option value="CT">Connecticut</option>
+          <option value="DE">Delaware</option>
+          <option value="DC">District Of Columbia</option>
+          <option value="FL">Florida</option>
+          <option value="GA">Georgia</option>
+          <option value="HI">Hawaii</option>
+          <option value="ID">Idaho</option>
+          <option value="IL">Illinois</option>
+          <option value="IN">Indiana</option>
+          <option value="IA">Iowa</option>
+          <option value="KS">Kansas</option>
+          <option value="KY">Kentucky</option>
+          <option value="LA">Louisiana</option>
+          <option value="ME">Maine</option>
+          <option value="MD">Maryland</option>
+          <option value="MA">Massachusetts</option>
+          <option value="MI">Michigan</option>
+          <option value="MN">Minnesota</option>
+          <option value="MS">Mississippi</option>
+          <option value="MO">Missouri</option>
+          <option value="MT">Montana</option>
+          <option value="NE">Nebraska</option>
+          <option value="NV">Nevada</option>
+          <option value="NH">New Hampshire</option>
+          <option value="NJ">New Jersey</option>
+          <option value="NM">New Mexico</option>
+          <option value="NY">New York</option>
+          <option value="NC">North Carolina</option>
+          <option value="ND">North Dakota</option>
+          <option value="OH">Ohio</option>
+          <option value="OK">Oklahoma</option>
+          <option value="OR">Oregon</option>
+          <option value="PA">Pennsylvania</option>
+          <option value="RI">Rhode Island</option>
+          <option value="SC">South Carolina</option>
+          <option value="SD">South Dakota</option>
+          <option value="TN">Tennessee</option>
+          <option value="TX">Texas</option>
+          <option value="UT">Utah</option>
+          <option value="VT">Vermont</option>
+          <option value="VA">Virginia</option>
+          <option value="WA">Washington</option>
+          <option value="WV">West Virginia</option>
+          <option value="WI">Wisconsin</option>
+          <option value="WY">Wyoming</option>
+      </select>
+    </div><!--input-group-->  
+  </div><!--col-small-9-->
+  
+  <div class="col-sm-9">
+    <div class="input-group">
+      <span class="input-group-addon">Zip</span>
+        <input
+            type="text"
+             placeholder="Enter Zip Code"
+             class="form-control"
+             name="newZip"
+             ng-pattern="/^(\d{5}-\d{4}|\d{5})$/"
+             ng-model="newCustomer.zip">
+          <span class="error-message" 
+                ng-show="addCustomerForm.newZip.$invalid && 
+                         addCustomerForm.newZip.$dirty && 
+                         addCustomerForm.newZip.$touched">
+               Please enter a Valid Zip Code</span>
+    </div><!--input-group-->
+  </div><!--col-sm-9-->
+  
+  <div class="col-sm-12" id="addButton" style="padding: 10px;" >
+    <button 
+      class="btn btn-primary" 
+      ng-click="addNewCustomer(newCustomer)" 
+      ng-show="addCustomer"
+      ng-disabled="addCustomerForm.$invalid">Submit</button>
+   </div>
+</form>
+</div><!--container-->
+</div><!--container-->
+<div class="container " ng-if= "editOldCustomer">
+
+      <h3>Edit Customer</h3>
+        <div class="col-sm-12">
+
+ <!-- Edit Form -->
+<form name="editCustomerForm" novalidate>
+  <div class="col-sm-12">
+    <h4>Basic Information</h4>
+  </div>  
+  
+  <div class="col-sm-9">
+    <div class="input-group">
+      <span class="input-group-addon">Name</span>
+         <input
+            type="text"
+            name="editName"
+            placeholder="Enter Customer Name"
+            class="form-control"
+            ng-model="existingCustomer.name"
+            required >
+              <span class="error-message" 
+                    ng-show="editCustomerForm.editName.$invalid && 
+                             editCustomerForm.editName.$dirty">
+               Please enter the Customer's Name </span>
+     </div><!--input-group-->  
+  </div><!--col-small-9-->
+  
+  <div class="col-sm-9">
+    <div class="input-group">
+      <span class="input-group-addon">Email</span>
+         <input
+            type="email"
+            name="editEmail"
+            placeholder="Enter Customer Email"
+            class="form-control"
+            ng-model="existingCustomer.email">
+              <span class="error-message" 
+              ng-show="editCustomerForm.editEmail.$invalid && 
+              editCustomerForm.editEmail.$dirty && 
+              editCustomerForm.editEmail.$touched">
+               Please enter a valid Email Address</span>
+     </div><!--input-group-->  
+  </div><!--col-small-9-->
+  
+  <div class="col-sm-9">
+    <div class="input-group">
+      <span class="input-group-addon">Phone</span>
+         <input
+            type="text"
+            name="editPhone"
+            placeholder="Enter Customer Phone"
+            class="form-control"
+            ng-model="existingCustomer.phone"
+            ng-pattern="/^\(?(\d{3})\)?[ .-]?(\d{3})[ .-]?(\d{4})$/">
+              <span class="error-message" 
+                    ng-show="editCustomerForm.editPhone.$dirty && 
+                    editCustomerForm.editPhone.$invalid && 
+                    editCustomerForm.editPhone.$touched">
+              Please enter a valid Phone Number</span>
+     </div><!--input-group-->  
+  </div><!--col-small-9-->
+  
+  <div class="col-sm-12">
+     <h4 style="padding-top: 10px;">Address</h4>
+  </div>
+  
+  <div class="col-sm-9">
+    <div class="input-group">
+      <span class="input-group-addon">Street</span>
+        <input
+           type="text"
+           name="editStreet"
+           placeholder="Enter the Street number and Name"
+           class="form-control"
+           ng-model="existingCustomer.street">
+     </div><!--input-group-->  
+  </div><!--col-small-9-->   
+  
+  <div class="col-sm-9">
+    <div class="input-group">
+      <span class="input-group-addon">City</span>
+        <input
+                type="text"
+                name="editCity"
+                placeholder="Enter the City"
+                class="form-control"
+                ng-model="existingCustomer.city">
+     </div><!--input-group-->  
+  </div><!--col-small-9-->
+  
+  <div class="col-sm-9">
+    <div class="input-group">
+      <span class="input-group-addon">State</span>
+      <select ng-model="existingCustomer.state" 
+              class="form-control" 
+              style="background: rgba(144, 144, 144, 0.25); color: white;">
+         <option value="" disabled selected>Select Customer State</option>
+          <option value="AL">Alabama</option>
+          <option value="AK">Alaska</option>
+          <option value="AZ">Arizona</option>
+          <option value="AR">Arkansas</option>
+          <option value="CA">California</option>
+          <option value="CO">Colorado</option>
+          <option value="CT">Connecticut</option>
+          <option value="DE">Delaware</option>
+          <option value="DC">District Of Columbia</option>
+          <option value="FL">Florida</option>
+          <option value="GA">Georgia</option>
+          <option value="HI">Hawaii</option>
+          <option value="ID">Idaho</option>
+          <option value="IL">Illinois</option>
+          <option value="IN">Indiana</option>
+          <option value="IA">Iowa</option>
+          <option value="KS">Kansas</option>
+          <option value="KY">Kentucky</option>
+          <option value="LA">Louisiana</option>
+          <option value="ME">Maine</option>
+          <option value="MD">Maryland</option>
+          <option value="MA">Massachusetts</option>
+          <option value="MI">Michigan</option>
+          <option value="MN">Minnesota</option>
+          <option value="MS">Mississippi</option>
+          <option value="MO">Missouri</option>
+          <option value="MT">Montana</option>
+          <option value="NE">Nebraska</option>
+          <option value="NV">Nevada</option>
+          <option value="NH">New Hampshire</option>
+          <option value="NJ">New Jersey</option>
+          <option value="NM">New Mexico</option>
+          <option value="NY">New York</option>
+          <option value="NC">North Carolina</option>
+          <option value="ND">North Dakota</option>
+          <option value="OH">Ohio</option>
+          <option value="OK">Oklahoma</option>
+          <option value="OR">Oregon</option>
+          <option value="PA">Pennsylvania</option>
+          <option value="RI">Rhode Island</option>
+          <option value="SC">South Carolina</option>
+          <option value="SD">South Dakota</option>
+          <option value="TN">Tennessee</option>
+          <option value="TX">Texas</option>
+          <option value="UT">Utah</option>
+          <option value="VT">Vermont</option>
+          <option value="VA">Virginia</option>
+          <option value="WA">Washington</option>
+          <option value="WV">West Virginia</option>
+          <option value="WI">Wisconsin</option>
+          <option value="WY">Wyoming</option>
+      </select>
+    </div><!--input-group-->  
+  </div><!--col-small-9-->
+  
+  <div class="col-sm-9">
+    <div class="input-group">
+      <span class="input-group-addon">Zip</span>
+        <input
+            type="text"
+             placeholder="Enter Zip Code"
+             class="form-control"
+             name="editZip"
+             ng-pattern="/^(\d{5}-\d{4}|\d{5})$/"
+             ng-model="existingCustomer.zip">
+          <span class="error-message" 
+                ng-show="editCustomerForm.editZip.$invalid && 
+                editCustomerForm.editZip.$dirty && 
+                editCustomerForm.editZip.$touched">
+               Please enter a Valid Zip Code</span>
+    </div><!--input-group-->
+  </div><!--col-sm-9-->
+  
+  <div class="col-sm-12" id="addButton" style="padding: 10px;" >
+    <button 
+      class="btn btn-primary" 
+      ng-click="update()" 
+      ng-disabled="editCustomerForm.$invalid">Update Customer</button>
+   </div>
+</form>
+</div>
+</div>
+          </section>
+
+        <!-- Footer -->
+          <footer id="footer">
+            <ul class="icons">
+              <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+              <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+              <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+              <li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+              <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+            </ul>
+            <ul class="copyright">
+              <li>&copy; Cyber Care</li><li>Author: JP Stearns</li>
+            </ul>
+          </footer>
+
+      </div>
+
+	</div>
+    
+    <!-- Scripts -->
+      <script src="/js/jquery.min.js"></script>
+      <script src="/js/jquery.scrollex.min.js"></script>
+      <script src="/js/jquery.scrolly.min.js"></script>
+      <script src="/js/skel.min.js"></script>
+      <script src="/js/util.js"></script>
+      <!--[if lte IE 8]><script src="/js/ie/respond.min.js"></script><![endif]-->
+      <script src="/js/main.js"></script>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+      <script src="controller.js"></script>
+
+</body>
+</html>

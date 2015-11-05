@@ -1,0 +1,31 @@
+{
+  "name": "customer_app",
+  "version": "1.0.0",
+  "description": "An app to manage customer relations",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "mongojs": "^1.4.1",
+    "serve-favicon": "^2.3.0",
+    "mongodb": "^2.0.47"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpstearns/customerApp.git"
+  },
+  "keywords": [
+    "customer"
+  ],
+  "author": "jpStearns",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpstearns/customerApp/issues"
+  },
+  "homepage": "https://github.com/jpstearns/customerApp#readme"
+}
