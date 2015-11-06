@@ -6,7 +6,6 @@ var refresh = function(){
 $http.get('/customers').success(function(response) {
 	console.log("I got the data I requested")
 	$scope.customers = response;
-    $scope.customer = {};
   });
 };
         refresh();
@@ -15,10 +14,10 @@ $http.get('/customers').success(function(response) {
     	$scope.newCustomer = {};
 
     	$scope.addNewCustomer = function(newCustomer){
-    		console.log($scope.newCustomer)
-    		$scope.customers.push(newCustomer);    		
-    		$http.post('/customers', $scope.newCustomer).success(function(response){
+    		console.log($scope.newCustomer); 		
+    		$http.post('/customers/', $scope.newCustomer).success(function(response){
     			console.log(response);
+          refresh();
             $scope.newCustomer = {};
     	    });
         }

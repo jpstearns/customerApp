@@ -42,8 +42,9 @@ app.get('/customers/:id', function (req, res) {
 app.put('/customers/:id', function (req, res) {
 	console.log(req.body);
   var id = req.params.id;
+  var _id = mongojs.ObjectId(id);
   db.customers.findAndModify({
-    query: {_id: "mongojs.ObjectId(id)"},
+    query: {_id: _id},
     update: {$set: {name: req.body.name, email: req.body.email, phone: req.body.phone,
                     street: req.body.street, city: req.body.city, state: req.body.state, zip: req.body.zip}},
     new: true}, function (err, doc) {
