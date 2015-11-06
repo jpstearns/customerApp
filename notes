@@ -1,0 +1,41 @@
+nodejs-->backend
+express-->Backend Framework
+angular-->frontend framework
+mongo--> The Database
+Restful API --> interacting with the data
+
+1.Download and install node from commandline
+2.In projects folder create new folder customerApp
+3.create server.js file
+4. require express in the server.js file
+5.Test the functionality of the server and tell the server to listen on port 3000
+6.tell the server here to find static files app.use(express.static(__dirname + "/public"))
+7.create a folder called public
+8.make index.html file
+9.test to make sure index.html is working
+10. setup angularjs in index.html by using the content delivery network (CDN) link
+11.add ng-app directive and ng-model directive on an input and test to see that angular is working. {{test}}
+12. Set up app to use bootstrap from get bootstrap.com
+13. Test bootstrap to make sure its working with browser refresh
+14. create the layout to make the customer app with angular.
+15. create controller.js file (binds the view to the model)
+16. ng-controller = appCtrl to the body-div to let angular know which controller to use
+17.add a console.log() to make sure controller is working
+18.Test the table and controller with dummy data in the controller
+19. Put dummy data into the controller using $scope (the glue between the app controller and the view) $scope.customers = customers = [person1, person2, person3]
+20.ng-repeat to increment over the customer array and write them into the table. customer in customers allows us to seperate the data in customers array
+21.transition to getting dummy data from the server. $http get in the controller to make a request from the server. put $http as a dependency on the app controller. In serverjs use app.get('/customers', function(req, res){
+	console.log("i recieved a GET request")
+}
+22.Copy dummy data into the server file under the console.log()
+23. download and install mongodb
+24.add some data using the mongo bash console
+25. use npm to install mongojs to use server to interact with mongodb database
+26. require mongojs module in the server file and then define the database and collection in another line
+27. Get the data from mongo db with a GET request
+28. Post request to to add data to the database make some input boxes using angular
+29. Define the addCustomer() function in the controller using a POST request
+30. install body parser to teach the server how to parse the body of the data
+31.insert the data from the form into the mongo database. db.customers.insert(req.body, function(err, doc){res.json(doc)})
+32. create a refresh() function in the controller. This will perform a new GET request to update the table
+33.  
