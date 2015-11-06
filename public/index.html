@@ -63,6 +63,7 @@
         <th>City</th>
         <th>State</th>
         <th>Zip</th>
+        <th>Date Created</th>
         <th>Actions<th>
       </tr>
   </thead>
@@ -76,6 +77,7 @@
         <td>{{customer.city}}</td>
         <td>{{customer.state}}</td>
         <td>{{customer.zip}}</td>
+        <td>{{customer.date}}</td>
         <td>
           <a href="#app" ng-click="deleteCustomer(customer._id)">Remove</a>
           <a href="#app"  
@@ -267,7 +269,7 @@
                Please enter a Valid Zip Code</span>
     </div><!--input-group-->
   </div><!--col-sm-9-->
-  
+ 
   <div class="col-sm-12" id="addButton" style="padding: 10px;" >
     <button 
       class="btn btn-primary" 

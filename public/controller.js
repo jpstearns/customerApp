@@ -2,6 +2,12 @@ var myApp = angular.module('myApp', []);
 myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
     console.log("Hello World from controller");
 
+var getDate = function(newCustomer){
+      var date = new Date();
+      console.log(date);
+      $scope.newCustomer.date = date;
+        }; 
+
 var refresh = function(){
 $http.get('/customers').success(function(response) {
 	console.log("I got the data I requested")
@@ -17,6 +23,7 @@ $http.get('/customers').success(function(response) {
     		console.log($scope.newCustomer); 		
     		$http.post('/customers/', $scope.newCustomer).success(function(response){
     			console.log(response);
+          getDate();
           refresh();
             $scope.newCustomer = {};
     	    });
