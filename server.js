@@ -52,6 +52,5 @@ app.put('/customers/:id', function (req, res) {
   );
 });
 
-$http.listen(process.env.PORT || 3000, function(){
-  console.log('listening on', http.address().port);
-});
+app.listen(3000);
+console.log("Server running on port 3000");
