@@ -3,7 +3,11 @@ myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
     console.log("Hello World from controller");
 
 var getDate = function(newCustomer){
-      var date = new Date();
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth()+1; //January is 0!
+      var yyyy = today.getFullYear();
+      var date = mm+"/"+dd+"/"+yyyy;
       console.log(date);
       $scope.newCustomer.date = date;
         }; 
@@ -20,12 +24,12 @@ $http.get('/customers').success(function(response) {
     	$scope.newCustomer = {};
 
     	$scope.addNewCustomer = function(newCustomer){
-    		console.log($scope.newCustomer); 		
+    		console.log($scope.newCustomer);
+        getDate(newCustomer); 		
     		$http.post('/customers/', $scope.newCustomer).success(function(response){
     			console.log(response);
-          getDate();
-          refresh();
             $scope.newCustomer = {};
+            refresh();
     	    });
         }
 
